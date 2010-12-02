@@ -6,8 +6,8 @@ module Specjour::Rspec
     def initialize
       @examples = []
       @duration = 0.0
-      ::Rspec.configuration.color_enabled = true
-      ::Rspec.configuration.output_stream = $stdout
+      ::RSpec.configuration.color_enabled = true
+      ::RSpec.configuration.output_stream = $stdout
     end
 
     def add(data)
@@ -29,11 +29,11 @@ module Specjour::Rspec
     def metadata_for_examples(metadata_collection)
       examples.concat(
         metadata_collection.map do |partial_metadata|
-          example = ::Rspec::Core::Example.allocate
+          example = ::RSpec::Core::Example.allocate
           example.instance_variable_set(:@example_group_class,
             OpenStruct.new(:metadata => {}, :ancestors => [])
           )
-          metadata = ::Rspec::Core::Metadata.new
+          metadata = ::RSpec::Core::Metadata.new
           metadata.merge! partial_metadata
           example.instance_variable_set(:@metadata, metadata)
           example
@@ -64,7 +64,7 @@ module Specjour::Rspec
 
     protected
     def new_progress_formatter
-      new_formatter = ::Rspec::Core::Formatters::ProgressFormatter.new($stdout)
+      new_formatter = ::RSpec::Core::Formatters::ProgressFormatter.new($stdout)
       new_formatter.instance_variable_set(:@failed_examples, failed_examples)
       new_formatter.instance_variable_set(:@pending_examples, pending_examples)
       new_formatter
