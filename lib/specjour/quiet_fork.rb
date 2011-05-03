@@ -4,7 +4,7 @@ module Specjour::QuietFork
 
   def self.fork(&block)
     @pid = Kernel.fork do
-      $stdout = StringIO.new
+      # $stdout = StringIO.new
       block.call
     end
   end
